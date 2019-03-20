@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: psql
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+      # Fernet Key
+      # - FERNET_KEY=
+
+  webserver:
+    build: ./airflow
+    container_name: webserver
+    restart: always
+    depends_on:
+        - postgres
+    environment:
+      - LOAD_EXAMPLES=n
+      - EXECUTOR=Local
+      # Fernet Key
+      # - AIRFLOW__CORE__FERNET_KEY=
+    volumes:
+      - ./airflow/dags:/usr/local/airflow/dags
+      - ./airflow/plugins:/usr/local/airflow/plugins
+      - ./airflow/requirement.txt:/requirements.txt
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
+  nginx:
+    image: nginx:latest
+    container_name: airflow-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    depends_on:
+      - webserver
