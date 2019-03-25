@@ -21,9 +21,13 @@ default_args = {
 dag = DAG('starter', default_args=default_args, schedule_interval=timedelta(1))
 
 # t1, t2 and t3 are examples of tasks created by instantiating operators
-t1 = BashOperator(task_id='print_date', bash_command='date', dag=dag)
+t1 = BashOperator(task_id='print_date_push_xcom', bash_command='date', xcom_push=True, dag=dag)
 
-t2 = BashOperator(task_id='sleep', bash_command='sleep 5', retries=3, dag=dag)
+t2 = BashOperator(
+    task_id='pull_from_xcom',
+    bash_command="echo {{ ti.xcom_pull(task_ids='print_date') }}",
+    dag=dag
+    )
 
 templated_command = '''
     {% for i in range(5) %}
