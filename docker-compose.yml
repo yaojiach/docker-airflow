@@ -3,7 +3,7 @@ version: '3'
 services:
   postgres:
     image: postgres:latest
-    container_name: psql
+    container_name: airflow_psql
     environment:
       - POSTGRES_USER=airflow
       - POSTGRES_PASSWORD=airflow
@@ -15,7 +15,7 @@ services:
 
   webserver:
     build: ./airflow
-    container_name: webserver
+    container_name: airflow_webserver
     restart: always
     depends_on:
         - postgres
@@ -37,7 +37,7 @@ services:
 
   nginx:
     image: nginx:latest
-    container_name: airflow-nginx
+    container_name: airflow_nginx
     ports:
       - "80:80"
     volumes:
