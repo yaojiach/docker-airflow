@@ -27,6 +27,7 @@ services:
     volumes:
       - ./airflow/dags:/usr/local/airflow/dags
       - ./airflow/plugins:/usr/local/airflow/plugins
+      - ./airflow/requirements.txt:/requirements.txt
     ports:
       - "8080:8080"
     healthcheck:

@@ -32,8 +32,8 @@ then
 fi
 
 # Install custom python package if requirements.txt is present
-if [ -e "$AIRFLOW_HOME/requirements.txt" ]; then
-    $(which pip) install --user -r "$AIRFLOW_HOME/requirements.txt"
+if [ -e "/requirements.txt" ]; then
+    $(which pip) install --user -r "/requirements.txt"
 fi
 
 if [ -n "$REDIS_PASSWORD" ]; then
