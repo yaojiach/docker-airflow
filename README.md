@@ -2,6 +2,12 @@
 
 Uses NGINX in case some companies have policies that do not allow random ports to be open.
 
+- Usage
+
+```sh
+docker-compose up --build -d
+```
+
 - Generate fernet key
 
 ```sh
