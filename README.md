@@ -2,6 +2,18 @@
 
 Uses NGINX in case some companies have policies that do not allow random ports to be open.
 
+Default to use authentication for web UI.
+
+```python
+# airflow/scripts/auth.py
+...
+user.email = 'admin@mail.box'
+user.username = 'admin'
+user.password = 'admin'
+...
+```
+
+
 - Usage
 
 ```sh

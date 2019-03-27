@@ -64,6 +64,7 @@ RUN set -ex \
         /usr/share/doc-base
 
 COPY scripts/entrypoint.sh /entrypoint.sh
+COPY scripts/auth.py /auth.py
 COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
 
 RUN chown -R airflow: ${AIRFLOW_HOME}
