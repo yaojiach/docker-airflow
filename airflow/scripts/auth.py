@@ -7,6 +7,7 @@ user = PasswordUser(models.User())
 user.username = 'admin'
 user.email = 'admin@mail.box'
 user.password = 'admin'
+
 session = settings.Session()
 session.add(user)
 session.commit()

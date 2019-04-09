@@ -11,13 +11,6 @@ ARG AIRFLOW_DEPS=""
 ARG PYTHON_DEPS=""
 ENV AIRFLOW_GPL_UNIDECODE yes
 
-# Define en_US.
-ENV LANGUAGE en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
-ENV LC_CTYPE en_US.UTF-8
-ENV LC_MESSAGES en_US.UTF-8
-
 RUN set -ex \
     && buildDeps=' \
         freetds-dev \
@@ -25,13 +18,13 @@ RUN set -ex \
         libsasl2-dev \
         libssl-dev \
         libffi-dev \
-        libpq-dev \
     ' \
     && apt-get update -yqq \
     && apt-get upgrade -yqq \
     && apt-get install -yqq --no-install-recommends \
         $buildDeps \
-        git \
+        libpq-dev \
+        git\
         freetds-bin \
         build-essential \
         default-libmysqlclient-dev \
